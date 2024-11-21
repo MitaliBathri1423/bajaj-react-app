@@ -1,6 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
+// const res = await axios.post(
+//   "https://bajaj-node-project.onrender.com",
+//   parsedInput
+// );
+
 function App() {
   const [jsonInput, setJsonInput] = useState("");
   const [response, setResponse] = useState(null);
@@ -9,7 +14,10 @@ function App() {
   const handleSubmit = async () => {
     try {
       const parsedInput = JSON.parse(jsonInput);
-      const res = await axios.post("http://localhost:5000/bfhl", parsedInput);
+      const res = await axios.post(
+        "https://bajaj-node-project-1.onrender.com/bfhl",
+        parsedInput
+      );
       setResponse(res.data);
     } catch (error) {
       alert("Invalid JSON or API Error");
@@ -19,10 +27,12 @@ function App() {
   const renderResponse = () => {
     if (!response) return null;
     let filteredData = {};
-    if (filters.includes("Alphabets")) filteredData.alphabets = response.alphabets;
+    if (filters.includes("Alphabets"))
+      filteredData.alphabets = response.alphabets;
     if (filters.includes("Numbers")) filteredData.numbers = response.numbers;
     if (filters.includes("Highest Lowercase Alphabet"))
-      filteredData.highest_lowercase_alphabet = response.highest_lowercase_alphabet;
+      filteredData.highest_lowercase_alphabet =
+        response.highest_lowercase_alphabet;
     return <pre>{JSON.stringify(filteredData, null, 2)}</pre>;
   };
 
@@ -36,7 +46,9 @@ function App() {
         rows={5}
         style={{ width: "100%", marginBottom: "10px" }}
       />
-      <button onClick={handleSubmit} style={{ marginBottom: "20px" }}>Submit</button>
+      <button onClick={handleSubmit} style={{ marginBottom: "20px" }}>
+        Submit
+      </button>
       <div>
         <h3>Filters</h3>
         <label>
